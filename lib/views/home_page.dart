@@ -1,9 +1,13 @@
-import 'dart:ui';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scarel_info_machine/constants/colors.dart';
 import 'package:scarel_info_machine/constants/height.dart';
-import 'package:scarel_info_machine/models/side_bar_model.dart';
+import 'package:scarel_info_machine/viewmodels/side_bar_viewmodel.dart';
+import 'package:scarel_info_machine/widgets/custom_contact_us.dart';
+import 'package:scarel_info_machine/widgets/custom_large_feild.dart';
+import 'package:scarel_info_machine/widgets/custom_switchrow.dart';
+import 'package:scarel_info_machine/widgets/custom_textform_heading.dart';
+import 'package:scarel_info_machine/widgets/custom_textformfeild.dart';
 
 class EmailCampaignScreen extends StatelessWidget {
   const EmailCampaignScreen({super.key});
@@ -14,107 +18,149 @@ class EmailCampaignScreen extends StatelessWidget {
       backgroundColor: Colors.grey[400],
       body: Padding(
         padding:
-            const EdgeInsets.only(top: 50, left: 200, right: 200, bottom: 50),
+            const EdgeInsets.only(top: 20, left: 250, right: 300, bottom: 20),
         child: Row(
           children: [
-            // Expanded(
-            //   flex: 3,
-            //   child: _buildForm(),
-            // ),
+            Expanded(
+         
+              child: _buildForm(),
+            ),
             const SizedBox(width: 16),
-            _buildSidebar(),
+            buildSidebar(),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildSidebar() {
-    return Container(
-
-      width: 400,
-      padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-      
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (int i = 0; i < steps.length; i++)
-            _buildStepIndicator(steps[i], i + 1),
-          const Spacer(),
-          const Text("Need Help?",
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text(
-              "Get to know how your campaign can reach a wider audience."),
-          const SizedBox(height: 8),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text("Contact Us"),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStepIndicator(StepModel step, int index) {
-    return Column(
+Widget _buildForm() {
+  return Container(
+    padding: const EdgeInsets.all(24.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(6.0),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
+        const Text(
+          "Create New Email Campaign",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        WebConstants.kheight5,
+        const Text(
+          "Fill out these details to build your broadcast",
+          style: TextStyle(
+              color: WebColors.sideBarUnselectedColor,
+              fontWeight: FontWeight.w400),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: step.isActive ? Colors.orange :WebColors.greyColor, 
-                width: 1 // Border width
-              ),
+            WebConstants.kheight20,
+            WebConstants.kheight5,
+            TextFormHeadingWidget(
+              heading: 'Campaign Subject',
             ),
-              child: CircleAvatar(
-                
-                backgroundColor: step.isActive ? Colors.orange : Colors.white,
-                child: Text(
-                  index.toString(),
-                  style: TextStyle(
-                    color: step.isActive ? Colors.white : Colors.grey,
-                  ),
-                ),
-              ),
+            WebConstants.kheight3,
+            CustomTextField(hintText: 'Enter Subject'),
+            WebConstants.kheight20,
+            TextFormHeadingWidget(
+              heading: 'Preview text',
             ),
-            WebConstants.kwidth10,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            WebConstants.kheight3,
+            CustomTextFieldLarge(
+              hintText: 'Enter text here...',
+              obscure: false,
+            ),
+            WebConstants.kheight10,
+            const Text(
+              "Keep this simple of 50 character",
+              style: TextStyle(
+                  color: WebColors.sideBarUnselectedColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12),
+            ),
+            WebConstants.kheight20,
+            Row(
               children: [
-                Text(
-                  step.title,
-                  style: TextStyle(
-                    fontWeight:
-                        step.isActive ? FontWeight.bold : FontWeight.w300,
-                    color: step.isActive ? WebColors.blackColor : const Color.fromARGB(208, 0, 0, 0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormHeadingWidget(
+                        heading: '"From" Name',
+                      ),
+                      WebConstants.kheight3,
+                      CustomTextField(hintText: 'From Anne'),
+                    ],
                   ),
                 ),
-                WebConstants.kheight3,
-                Text(
-                  step.description,
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontWeight:
-                        step.isActive ? FontWeight.bold : FontWeight.w600,
-                    color: step.isActive
-                        ? WebColors.texblackColor
-                        : WebColors.greyColor
+                WebConstants.kwidth20,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormHeadingWidget(
+                        heading: '"From" Email',
+                      ),
+                      WebConstants.kheight3,
+                      CustomTextField(hintText: 'Anne@example.com'),
+                    ],
                   ),
-                ),
-                
+                )
               ],
             ),
-    
+            WebConstants.kheight10,
+            const Divider(
+              color: WebColors.greyColor,
+              indent: 1,
+              endIndent: 1,
+              thickness: .5,
+            ),
+           CustomSwitchRow(),
+            WebConstants.kheight5,
+               Row(
+              children: [
+                const Text('Run only once per customer'),
+                const Spacer(),
+                Transform.scale(
+                  scale: .70,
+                  child: CupertinoSwitch(
+                    value: true,
+                    onChanged: (value) {},
+                  ),
+                ),
+              ],
+            ),
+            WebConstants.kheight15,
+            const Row(
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('You can set up a ',style: TextStyle(color: WebColors.sideBarUnselectedColor)),
+                Text('Custom domain or connect your email service provider ',style: TextStyle(color: Color.fromARGB(255, 244, 111, 3)),),
+                Text('to change this.',style: TextStyle(color: WebColors.sideBarUnselectedColor))
+              ],
+            ),
+            WebConstants.kheight10,
+              const Divider(
+              color: WebColors.greyColor,
+              indent: 1,
+              endIndent: 1,
+              thickness: .5,
+            ),
+            WebConstants.kheight15,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+          CustomElevatedButton(horizontal: 70,vertical: 20,borderColor: WebColors.orangeColor,textInside: 'Save Draft',textColor: WebColors.orangeColor,backgroundColor: WebColors.whiteColor,),
+              CustomElevatedButton(horizontal: 110,vertical: 20,borderColor: WebColors.orangeColor,textInside: 'Next Step',textColor: WebColors.whiteColor,backgroundColor: WebColors.orangeColor,)
+              ],
+            )
           ],
-        ),
-        WebConstants.kheight20
+        )
       ],
-    );
-  }
+    ),
+  );
 }

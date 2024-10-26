@@ -10,11 +10,17 @@ class WebConstants {
   static const SizedBox kheight20 = SizedBox(
     height: 20,
   );
+    static const SizedBox kheight25 = SizedBox(
+    height: 25,
+  );
   static const SizedBox kheight5 = SizedBox(
     height: 5,
   );
     static const SizedBox kheight3 = SizedBox(
     height: 3,
+  );
+      static const SizedBox kheight2 = SizedBox(
+    height: 2,
   );
   static const SizedBox kheight30 = SizedBox(
     height: 30,
