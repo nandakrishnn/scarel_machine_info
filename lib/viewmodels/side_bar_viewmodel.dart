@@ -6,31 +6,34 @@ import 'package:scarel_info_machine/models/side_bar_model.dart';
 import 'package:scarel_info_machine/widgets/custom_elevated_button.dart';
 
 Widget buildSidebar() {
-    return Container(
-      width: 350,
-      padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (int i = 0; i < steps.length; i++)
-            _buildSideIndicator(steps[i], i + 1),
-          const Spacer(),
-          const Text("Need Help?",
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          WebConstants.kheight5,
-          const Text(
-            "Get to know how your campaign\ncan reach a wider audience.",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-                wordSpacing: 0, color: WebColors.greyColor, fontSize: 12),
-          ),
-          WebConstants.kheight10,
-     CustomElevatedButton(horizontal: 20,vertical: 10,borderColor: WebColors.sideBarUnselectedColor,textInside: 'Contact Us',textColor: WebColors.texblackColor,backgroundColor: WebColors.whiteColor,)
-        ],
+    return Padding(
+      padding:const EdgeInsets.only(top: 18,bottom: 18),
+      child: Container(
+        width: 350,
+        padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (int i = 0; i < steps.length; i++)
+              _buildSideIndicator(steps[i], i + 1),
+            const Spacer(),
+            const Text("Need Help?",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            WebConstants.kheight5,
+            const Text(
+              "Get to know how your campaign\ncan reach a wider audience.",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                  wordSpacing: 0, color: WebColors.greyColor, fontSize: 12),
+            ),
+            WebConstants.kheight10,
+       CustomElevatedButton(horizontal: 20,vertical: 10,borderColor: WebColors.sideBarUnselectedColor,textInside: 'Contact Us',textColor: WebColors.texblackColor,backgroundColor: WebColors.whiteColor,)
+          ],
+        ),
       ),
     );
   }
@@ -44,11 +47,11 @@ Widget buildSidebar() {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                    color: step.isActive ? Colors.orange : WebColors.greyColor,
+                    color: step.isActive ? WebColors.orangeColor : WebColors.greyColor,
                     width: 1),
               ),
               child: CircleAvatar(
-                backgroundColor: step.isActive ? Colors.orange : Colors.white,
+                backgroundColor: step.isActive ?  WebColors.orangeColor : Colors.white,
                 child: Text(
                   index.toString(),
                   style: TextStyle(

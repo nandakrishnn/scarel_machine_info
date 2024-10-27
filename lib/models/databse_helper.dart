@@ -14,47 +14,48 @@ class DatabaseHelper {
   static Database? _database;
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDatabse();
+    _database = await _initDatabase();
     return _database!;
   }
 
-  Future<Database> _initDatabse() async {
-    return await openDatabase('emailcampaign.db',
-        version: _databaseversion, onCreate: _oncreate);
-  }
 
-  Future<void> _oncreate(Database db, int version) async {
-    await db.execute('''
-        CREATE TABLE $table(
-          $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-          $columnSubject TEXT NOT NULL,
-          $columnpreviewText TEXT NOT NULL,
-          $columnfromName TEXT  NOT NULL,
-          $columnfromEmail TEXT NOT NULL,
-        )
-''');
+  Future<Database> _initDatabase() async {
+    return await openDatabase(
+      'emailcampaign.db', 
+      version: _databaseversion,
+      onCreate: (Database db, int version) async {
+        await db.execute('''
+          CREATE TABLE $table (
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnSubject TEXT NOT NULL,
+            $columnpreviewText TEXT NOT NULL,
+            $columnfromName TEXT NOT NULL,
+            $columnfromEmail TEXT NOT NULL
+          )
+        ''');
+      },
+    );
   }
-
-  Future<int> insertCampaign(EmailCampaign campaign) async {
+  Future<int> insertCampaign(EmailCampaignData campaign) async {
     final db = await database;
     return await db.insert(table, {
       columnSubject: campaign.subject,
-      columnpreviewText: campaign.previewtext,
+      columnpreviewText: campaign.previewText,
       columnfromName: campaign.fromName,
       columnfromEmail: campaign.fromEmail,
 
     });
   }
 
-  Future<List<EmailCampaign>> getStudents() async {
+  Future<List<EmailCampaignData>> getCampaignDetails() async {
     final db = await database;
    final List<Map<String, dynamic>> maps = await db.query(table);
     return List.generate(
         maps.length,
-        (index) => EmailCampaign(
+        (index) => EmailCampaignData(
             id: maps[index][columnId],
             subject: maps[index][columnSubject],
-            previewtext: maps[index][columnpreviewText],
+            previewText: maps[index][columnpreviewText],
             fromName: maps[index][columnfromName],
             fromEmail: maps[index][columnfromEmail],
        ));

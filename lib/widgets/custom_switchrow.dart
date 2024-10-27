@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:scarel_info_machine/constants/colors.dart';
 
 class CustomSwitchRow extends StatefulWidget {
-  const CustomSwitchRow({super.key});
+  String title;
+   CustomSwitchRow({super.key,required this.title});
 
   @override
   State<CustomSwitchRow> createState() => _CustomSwitchRowState();
@@ -15,7 +17,7 @@ class _CustomSwitchRowState extends State<CustomSwitchRow> {
     return Row(
       children: [
         Text(
-          'Run only once per customer',
+          widget.title,
           style: TextStyle(
             fontWeight: _isSwitched ? FontWeight.bold : FontWeight.normal,
           ),
@@ -25,6 +27,7 @@ class _CustomSwitchRowState extends State<CustomSwitchRow> {
           scale: 0.7,
           child: CupertinoSwitch(
             value: _isSwitched,
+            activeColor: WebColors.orangeColor,
             onChanged: (value) {
               setState(() {
                 _isSwitched = value;
