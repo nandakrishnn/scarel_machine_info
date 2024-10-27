@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 // ignore: must_be_immutable
 class CustomElevatedButton extends StatelessWidget {
+void Function()? onTap;
   double horizontal;
   double vertical;
   Color backgroundColor;
@@ -16,6 +18,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.textColor,
     required this.textInside,
     required this.borderColor,
+    this.onTap,
     required this.horizontal,
     required this.vertical,
     super.key,
@@ -24,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: onTap,
       style: OutlinedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(6.0), 

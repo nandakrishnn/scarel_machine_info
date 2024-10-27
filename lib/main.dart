@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+
+
+
 import 'package:scarel_info_machine/views/home_page.dart';
 
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
+   
+
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

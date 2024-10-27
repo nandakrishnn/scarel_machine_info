@@ -3,7 +3,7 @@
 import 'package:scarel_info_machine/constants/colors.dart';
 import 'package:scarel_info_machine/constants/height.dart';
 import 'package:scarel_info_machine/models/side_bar_model.dart';
-import 'package:scarel_info_machine/widgets/custom_contact_us.dart';
+import 'package:scarel_info_machine/widgets/custom_elevated_button.dart';
 
 Widget buildSidebar() {
     return Container(
